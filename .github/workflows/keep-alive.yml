@@ -1,0 +1,20 @@
+name: Keep Codespace Alive
+
+on:
+  schedule:
+    # 每4小时运行一次（UTC 时间 0, 4, 8, 12, 16, 20 点）
+    - cron: "0 */4 * * *"
+  workflow_dispatch: # 手动触发（手机 GitHub App 也能用）
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start Codespace
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🦞 检查并启动 Codespace..."
+          gh codespace list -R kexinzhang3-lab/openclaw
+          gh codespace start -R kexinzhang3-lab/openclaw || echo "Codespace 可能已在运行"
+          echo "✅ 完成"

@@ -1,20 +1,16 @@
 name: Mobile-One-Click-Start
+
 on:
-  workflow_dispatch:
+  workflow_dispatch: # 手机 GitHub App 手动触发
 
 jobs:
-  run-claw:
+  wake-up:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-      - name: Install & Run
-        run: |
-          npm install
-          node openclaw.mjs gateway
+      - name: Start Codespace
         env:
-          DISCORD_TOKEN: 39c63cce76139056bead9652a7bf1633acc1cf7ed9134448
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🦞 启动 Codespace..."
+          gh codespace start -R kexinzhang3-lab/openclaw || echo "Codespace 可能已在运行"
+          echo "✅ 完成"
