@@ -1,0 +1,27 @@
+name: Mobile-One-Click-Start
+
+on:
+  workflow_dispatch: # 手机 GitHub App 手动触发
+
+jobs:
+  wake-up:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start Codespace and OpenClaw
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🦞 启动 Codespace..."
+
+          # 启动 Codespace
+          gh codespace start -R kexinzhang3-lab/openclaw || echo "Codespace 可能已在运行"
+
+          # 等待 Codespace 完全启动
+          echo "⏳ 等待 Codespace 启动..."
+          sleep 30
+
+          # 在 Codespace 里启动 OpenClaw Gateway
+          echo "🚀 启动 OpenClaw Gateway..."
+          gh codespace ssh -R kexinzhang3-lab/openclaw --command "openclaw gateway start || echo 'Gateway 可能已在运行'"
+
+          echo "✅ 完成！现在可以在 Discord 找我了"
