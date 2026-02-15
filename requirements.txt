@@ -1,0 +1,15 @@
+# VRP Singapore Dependencies
+# 安装命令: pip install -r requirements.txt
+
+# 核心依赖
+ortools>=9.0.0          # Google OR-Tools (VRP 求解)
+folium>=0.14.0           # 交互式地图
+pandas>=1.5.0            # 数据处理
+
+# 可选依赖（增强功能）
+# folium-plugins          # Folium 插件（AntPath 等）- folium 已包含
+# numpy>=1.21.0           # 数值计算
+
+# 注意：
+# 1. 如果 pip 安装失败，尝试: pip install --no-cache-dir ortools
+# 2. folium 版本需要 >= 0.14.0 才能使用 AntPath
